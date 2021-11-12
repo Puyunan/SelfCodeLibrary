@@ -1,8 +1,8 @@
 # 方法1 利用OleDB进行读取，读出来是public static DataSet ToDataTable()
 public static DataSet ToDataTable()
 {
-	string connStr = " ";
-	OpenFileDialog openFile = new OpenFileDialog();
+    string connStr = " ";
+    OpenFileDialog openFile = new OpenFileDialog();
 	openFile.Filter = "Excel(*.xlsx)|*.xlsx|Excel(*.xls)|*.xls";
 	openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 	openFile.Multiselect = false;
