@@ -1,4 +1,5 @@
-# 方法1 利用OleDB进行读取，读出来是public static DataSet ToDataTable()
+# 方法1 利用OleDB进行读取Excel文件，读出来是DataSet
+# 每个DataTable的名称，是Excel页Sheet的名称，DataTable每列的值是
 public static DataSet ToDataTable()
 {
     string connStr = " ";
@@ -57,4 +58,43 @@ public static DataSet ToDataTable()
 		}
 	}
 	return ds;
+}
+
+# 方法2 导入Csv文件，直接使用IO.Stream读取
+public static void CsvRead()
+{
+	string curFileName = null;
+    //后缀
+	openFileDialogData.Filter = "文本文件(*csv)|*csv";
+	openFileDialogData.Title = "打开Csv文件";
+	if (openFileDialogData.ShowDialog() == DialogResult.OK)
+	{
+		curFileName = openFileDialogData.FileName;
+		try
+		{
+			Initialize();//初始化函数就是把所要存储数据的集合给Clear掉
+			string strLine;
+			string[] aryLine;
+			//读取数据
+			System.IO.StreamReader SpectrumDataStr = new System.IO.StreamReader(curFileName);
+            while ((strLine = SpectrumDataStr.ReadLine()) != null)
+			{
+				aryLine = strLine.Split(new char[] { ',', ' ' });
+				//现在这个aryLine存储的就是每一行的数据
+				//for循环里面根据自己的需求进行编写即可
+				for (int i = 0; i < aryLine.Length; i++)
+				{
+					if(i%2==0)
+						xdata.Add(aryLine[i]);
+					else
+						ydata.Add(aryLine[i]);
+				}
+			}
+		}
+		catch (Exception a)
+		{
+			MessageBox.Show(a.Message);
+			return;
+		}
+	}
 }
