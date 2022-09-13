@@ -1,1 +1,1 @@
-# SpectrometerSoftwareRec
+自用的小功能代码查询库
